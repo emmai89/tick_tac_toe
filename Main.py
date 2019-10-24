@@ -2,7 +2,7 @@ import random
 import os
 from Backend import begin
 
-scores = [0, 0]
+scores = [0, 0, 0]
 while True :
     option = input("""\n\nWhat do you want to do?
     1. Play

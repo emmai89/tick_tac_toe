@@ -8,11 +8,11 @@ def createArray():
 
 def drawBoard(board):
     hangman =("""
-                  1 | 2 | 3
+                  7 | 8 | 9
                  ------------
                   4 | 5 | 6
                  ------------
-                  7 | 8 | 9
+                  1 | 2 | 3
                   """)
     for char in hangman:
         try:
@@ -24,8 +24,12 @@ def drawBoard(board):
         except Exception as e:
             print(char, end='')
 
-def validPiece(board, round):
-    move = round % 2
+def validPiece(board, round, scores):
+    if round == 1:
+        move = scores[2]
+        pass
+    else :
+        move = round % 2
     peice = "x"
     if move == 1 :
         peice = "o"
@@ -59,8 +63,10 @@ def winMessage(player, board, scores):
     print("\n\n\t\t", player, " won!\n")
     if player == "x" :
         scores[0] += 1
+        scores[2] = 0
     else :
         scores[1] += 1
+        scores[2] = 1
 
 
 def winning(board, scores):
@@ -98,11 +104,12 @@ def begin(scores):
     while not winner:
         os.system('cls||clear')
         round += 1
-        peice = validPiece(board, round)
+        peice = validPiece(board, round, scores)
         place = validPlace(board, peice)
         board[place] = peice
         winner = winning(board, scores)
         if round == 9 :
             drawBoard(board)
             print("\n\n\t\tIt's a draw")
+            scores[2] = rand(0,1)
             winner = True
